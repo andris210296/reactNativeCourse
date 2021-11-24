@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 
-import Card from '../components/Card';
 import Colors from '../constants/colors';
+import Card from '../components/Card';
 import Input from '../components/Input';
+import NumberComponent from '../components/NuberContainer';
 
 const StartGameScreen = props => {
 
@@ -32,12 +33,19 @@ const StartGameScreen = props => {
         setConfirmed(true);
         setSelectedNumber(choseNumber);
         setEnteredValue('');
+        Keyboard.dismiss();
     };
 
     let confirmedOutput;
 
     if (confirmed) {
-        confirmedOutput = <Text> Chosen Number: {selectedNumber}</Text>
+        confirmedOutput = (
+            <Card style={styles.summaryContainer}>
+                <Text> You selected</Text>
+                <NumberComponent>{selectedNumber}</NumberComponent>
+                <Button title="START GAME"/>
+            </Card>
+        );
     }
 
     return (
@@ -92,6 +100,11 @@ const styles = StyleSheet.create({
     input: {
         width: 50,
         textAlign: 'center'
+    },
+    summaryContainer: {
+        marginTop:20,
+        alignItems: 'center'
+
     }
 });
 
